@@ -11,12 +11,12 @@ interface Props {
 
 function SideBar({ name, eventid }: Props) {
   const { data: actionsD, error: actionsErr } = useSWR<Iteminterface[]>(
-    eventid ? "http://localhost:3000/api/actions" : null,
+    eventid ? `/api/actions` : null,
     fetcher
   );
 
   const { data: conditionD, error: conditionErr } = useSWR<Iteminterface[]>(
-    eventid ? `http://localhost:3000/api/conditions/${eventid}` : null,
+    eventid ? `/api/conditions/${eventid}` : null,
     fetcher
   );
   let items: Iteminterface[] | undefined, error;
