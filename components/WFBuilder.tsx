@@ -20,7 +20,7 @@ function WFBuilder({
   value: Iteminterface | null;
 }) {
   const { data: eventD, error: eventErr } = useSWR<Iteminterface[]>(
-    "http://localhost:3000/api/events",
+    "/api/events",
     fetcher
   );
   let label: string, options: Iteminterface[];
