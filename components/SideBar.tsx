@@ -10,18 +10,22 @@ interface Props {
 }
 
 function SideBar({ name, eventid }: Props) {
-  const { data: actionsD, error: actionsErr } = useSWR<Iteminterface[]>(
-    eventid ? `/api/actions` : null,
+  const { data: items, error } = useSWR<Iteminterface[]>(
+    eventid && name === "ACTION"
+      ? `/api/actions`
+      : eventid && name === "CONDITION"
+      ? `/api/conditions/${eventid}`
+      : null,
     fetcher
   );
 
-  const { data: conditionD, error: conditionErr } = useSWR<Iteminterface[]>(
-    eventid ? `/api/conditions/${eventid}` : null,
-    fetcher
-  );
-  let items: Iteminterface[] | undefined, error;
-  name === "ACTION" ? (items = actionsD) : (items = conditionD);
-  name === "ACTION" ? (error = actionsErr) : (error = conditionErr);
+  // const { data: conditionD, error: conditionErr } = useSWR<Iteminterface[]>(
+  //   eventid ? `/api/conditions/${eventid}` : null,
+  //   fetcher
+  // );
+  // let items: Iteminterface[] | undefined, error;
+  // name === "ACTION" ? (items = actionsD) : (items = conditionD);
+  // name === "ACTION" ? (error = actionsErr) : (error = conditionErr);
 
   if (!eventid) {
     return (
